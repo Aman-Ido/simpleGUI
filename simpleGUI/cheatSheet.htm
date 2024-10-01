@@ -1,0 +1,302 @@
+<!-- 
+In this file I am going to make a HTML documentation of the simpleGUI program.
+-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Simple GUI - Documentation (Cheatsheet) </title>
+		<meta charset="UTF-8">
+		
+		<!-- styling -->
+		<style>
+			body {
+				font-family: consolas;
+				background-color: #000000;
+				color: #d0d0d0;
+			}
+			.sc1 {
+				color: #4169e1;
+			}
+			
+			.comment {
+				color: #4b5320;
+			}
+			
+			.sc2 {
+				color: #fdb0c0;
+			}
+			
+			.number {
+				color: #1fd655;
+			}
+			
+			.string {
+				color: #c76e00;
+			}
+			
+			.container {
+				border: 1px solid #ffffff;
+			}
+			
+			.sub-container {
+				margin: 10px;
+				border: 1px solid #ffffff;
+			}
+			
+			.highlight {
+				background: #fbf719;
+				color: #000;
+			}
+			
+			.heading {
+				color: #00ffff;
+				background: #535353;
+			}
+			
+			.sub-heading {
+				color: #ff00ff;
+				background: #434343;
+			}
+		</style>
+	</head>
+	<body>
+		<p>All of these classes are inside of <span class="highlight">'simple'</span> namespace. Also, to use these methods you must initialize SDL and SDL_ttf. This program is built upon SDL2. For, <span class="highlight">'Button'</span> and <span class="highlight"> 'Entry'</span>, you must use their <span class="highlight">'handleEvent'</span> method
+		inside of <span class="highlight">'SDL_PollEvent'</span>. And for <span class="highlight">'Entry'</span>, please make sure to use <span class="highlight">SDL_StartTextInput () </span> function and <span class="highlight">SDL_StopTextInput ()</span> functions in their respective places, this simple gui does not initialize them.</p>
+		<div class="container" id="Label">
+			<h5 class="heading" id="label-heading"><u>Label</u></h5>
+			* This class just makes texts and renders them.<br>
+			<b class="sub-heading" id="label-sub-heading">Methods of Label</b>
+			<!-- list of methods for the label -->
+			<ol>
+				<li>
+					<span class="sc1">void</span> freeLabel (<span class="sc1">void</span>); <span class="comment">// This method frees texture</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> createLabel (SDL_Renderer* lRenderer, TTF_Font* mFont); <span class="comment">// method to create texture (text) </span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setDefaultColor (<span class="sc1">int</span> red, <span class="sc1">int</span> green, <span class="sc1">int</span> blue, <span class="sc1">int</span> opacity); <span class="comment">// method to set the default color (or to change the color)</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setLabelCoordinates (<span class="sc1">int</span> x, <span class="sc1">int</span> y); <span class="comment">// method to set the label coordinates</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setupLabel (<span class="sc1">int</span> x, <span class="sc1">int</span> y, std::string message, SDL_Renderer* lRenderer, TTF_Font* mFont); <span class="comment">// method to setup the label, just calling this method will be enough for loading the texture with default values</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> renderLabel ( SDL_Renderer* lRenderer ); <span class="comment">// method to render the label </span>
+				</li>
+			</ol>
+			<b class="sub-heading" id="label-sub-heading">Variables of Label</b><br>
+				<span class="sc1">public</span>:<br>
+				SDL_Rect text; <span class="comment">// This is for the string / texture rendering</span><br>
+				SDL_Texture* mTexture = <span class="sc2">NULL</span><span class="comment">// This is for the text texture </span>;<br>
+				SDL_Color DefaultColor = {<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>};<span class="comment">// color of the text</span><br>
+				std::string stringValue = <span class="string">""</span>;<span class="comment">// string that needs to be created to texture </span><br>
+			
+			<br><br>
+			<div class="sub-container" id="sub-container-label"><h5>Example Code</h5><br>
+				simple::Label l1;<br>
+				l1.setDefaultColor (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>); <span class="comment">// Red Color</span><br>
+				l1.setupLabel (<span class="number">20</span>, <span class="number">30</span>, <span class="string">"Hello World!"</span>, renderer, mFont);<br>
+				l1.renderLabel (renderer); <br>
+			</div>
+		</div>
+		
+		<!-- for the entry -->
+		<div class="container" id="entry">
+			<h5 class="heading" id="entry-heading"><u>Entry</u></h5>
+			* This class makes input field for input. You can change the input type to password (which is called passcode here) or text. You can also copy and paste text to it.<br>
+			<b class="sub-heading" id="entry-sub-heading">Methods of Entry</b>
+			<!-- list of method sfor the entry -->
+			<ol>
+				<li>
+					<span class="sc1">void</span> freeEntry (<span class="sc1">void</span>); <span class="comment">// method to free texture of the text (only texture)</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> createEntry (SDL_Renderer* lRenderer, TTF_Font* mFont, SDL_Color textColor); <span class="comment">// method to create texture from the text stored in the string Value</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setupBox (<span class="sc1">int</span> x, <span class="sc1">int</span> y, <span class="sc1">int</span> width, <span class="sc1">int</span> height, <span class="sc1">int</span> fontSize, SDL_Renderer* lRenderer, TTF_Font* mFont); <span class="comment">// method to setup the box coordinate and size -> if the value of height is -1 then the height of the box is automatic</span></span>
+				</li>
+				<li>
+					<span class="sc1">void</span> putInBox (<span class="sc1">void</span>); <span class="comment">// method to put the text into the input box </span>
+				</li>
+				<li>
+					<span class="sc1">void</span> renderEntry (SDL_Renderer* lRenderer); <span class="comment">// method to render the box and the texture (text) inside of the input box</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> handleEvents (SDL_Event& e, SDL_Renderer* lRenderer, TTF_Font* mFont); <span class="comment">// method to handle events</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> toCopy (<span class="sc1">void</span>); <span class="comment">// this one is related to clipping if there is overflow of the text</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> updateClip <span class="sc1">void</span>); <span class="comment">// method to update the text if there is an overflow, this and the previous functions work together</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setDefaultColor (<span class="sc1">int</span> red, <span class="sc1">int</span> green, <span class="sc1">int</span> blue, <span class="sc1">int</span> opacity); <span class="comment">// method to change the text color also the box color</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setInputType (std::string localType); <span class="comment">// method to set if the input is going to be passcode or normal text</span>
+				</li>
+				<li>
+					std::string getPasscodeString (<span class="sc1">void</span>); <span class="comment">// getter method to get the real value of input if the type is set to passcode</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> updateCursor (<span class="sc1">void</span>); <span class="comment">// method to update the cursor</span>
+				</li>
+			</ol>
+			
+			<!-- list of variables for entry class -->
+			<b class="sub-heading" id="entry-sub-heading">Variables of Entry</b>
+			<br><br>
+			<span class="sc1">public</span>:
+			<ol>
+				<li>SDL_Rect destination;<span class="comment">// for text / texture</span></li> 
+				<li>SDL_Rect source;<span class="comment">// for clipping of the text</span></li>
+				<li>SDL_Point padding = {<span class="number">3</span>, <span class="number">3</span>}; <span class="comment">// for padding of the text inside of the input box</span></li>
+				<li>SDL_Point mouse; <span class="comment">// to keep track of mouse movement or position</span></li>
+				<li>SDL_Rect box; <span class="comment">// rect for the input box / field</span></li>
+				<li>SDL_Texture* mTexture = <span class="sc2">NULL</span>;</li>
+				<li>std::string stringValue = <span class="string">" "</span>;</li>
+				<li>SDL_Rect cursor = {<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">2</span>}<span class="comment">// the cursor size is by set by default but the coordinates are updated later</span></li>
+				<li>std::string TypeOfInput = <span class="string">"normal"</span>;</li>
+				<li><span class="sc1">bool</span> active = <span class="sc2">false</span>;<span class="comment">// to see if the input bar is active or not active</span></li>
+				<li><span class="sc1">bool</span> showCursor = <span class="sc2">false</span>;<span class="comment">// switch, if the cursor should be shown or not</span></li>
+				<li>SDL_Color DefaultColor = {<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>};<span class="comment">// set the default color for both text and input box</span></li>
+			</ol>
+			<br><br>
+			<span class="sc1">private</span>:
+			<ol>
+				<li>std::string passcodeString = <span class="string">""</span>;</li>
+			</ol>
+			
+			<br><br>
+			<!-- for example -->
+			<div class="sub-container" id="sub-container-entry">
+				<h5>Example Code</h5>
+				simple::Entry input;<br>
+				input.setupBox (<span class="number">20</span>, <span class="number">30</span>, <span class="number">300</span>, <span class="number">-1</span>, fontSize, renderer, mFont); <br>
+				<span class="comment">// input.setInputType ("passcode")</span><br>
+				
+				<h5>* Inside of the event handling *</h5>
+				input.handleEvents (e, renderer, mFont);<br>
+				
+				<h5>* Inside of the main loop / program running loop *</h5>
+				input.renderEntry (renderer);<br>
+			</div>
+		</div>
+		
+		<!-- container for button -->
+		<div class="container" id="button">
+			<h5 class="heading" id="heading-entry">Button</h5>
+			* The button created will react to hover and button press. However, there is a bug where the button is pressed twice. It will be fixed in future updates.<br>
+			<b class="sub-heading" id="sub-heading-button">Methods of Button</b>
+			<!-- list of methods for the button -->
+			<ol>
+				<li>
+					<span class="sc1">void</span> freeButton (<span class="sc1">void</span>); <span class="comment">// method to free the texture for the text (only texture)</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> createButton (SDL_Renderer* lRenderer, TTF_Font* mFont); <span class="comment">// method to create button (text) / texture</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> renderButton (SDL_Renderer* lRenderer); <span class="comment"> // method to render Button</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> PutInBox (<span class="sc1">void</span>); <span class="comment">// method to put the text inside of the button </span>
+				</li>
+				<li>
+					<span class="sc1">void</span> updateBox (<span class="sc1">void</span>); <span class="comment">// method to update the box -> this is after we create texture from text so we update the width and height of the button</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setDefaultColor (<span class="sc1">int</span> red, <span class="sc1">int</span> green, <span class="sc1">int</span> blue, <span class="sc1">int</span> opacity); <span class="comment">// method to set the default color for both button box and the text</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setStringValue (std::string localString); <span class="comment">// method to set the string value -> this value will be the text of the button</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setHoverColor (<span class="sc1">int</span> red, <span class="sc1">int</span> green, <span class="sc1">int</span> blue, <span class="sc1">int</span> opacity); <span class="comment">// method to set the hover color for button text</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setClickAnimation (<span class="sc1">int</span> de_fault); <span class="comment">// method to set up the click animation, currently it is still in development but it works</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setAnimationStatus (<span class="sc1">bool</span> click, <span class="sc1">bool</span> hover); <span class="comment">// method to turn hover and click animation true or false</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> handleEvents (SDL_Event& e, SDL_Renderer* lRenderer, TTF_Font* mFont, bool* returnData); <span class="comment">// method to handle events for button</span>
+				</li>
+				<li>
+					<span class="sc1">void</span> setupButton (<span class="sc1">int</span> x, <span class="sc1">int</span> y, SDL_Renderer* lRenderer, TTF_Font* mFont, std::string stringValue); <span class="comment">// method to setup the button with all the default value </span>
+				</li>
+			</ol>
+			<b class="sub-heading" id="sub-heading-button">Variables of Button</b>
+			<br><br>
+			<span class="sc1">public</span>:<br>
+			<ol>
+				<li>
+					std::string stringValue = <span class="string">"Enter"</span>; <span class="comment">// this is the value that will be displayed on the button</span>
+				</li>
+				<li>
+					SDL_Texture* mTexture = <span class="sc2">NULL</span>; <span class="comment">// texture for the text</span>
+				</li>
+				<li>
+					SDL_Rect box; <span class="comment">// use setupButton () method or setBoxCoordinates (int x, int y), width and height will be filled automatically</span>
+				</li>
+				<li>
+					SDL_Rect text; <span class="comment">// use setupButton () method or manually run, setBoxCoordinates (int x, int y) .. PutInBox () .. updateBox ()</span>
+				</li>
+				<li>
+					SDL_Rect clickAnimation; <span class="comment">// use setClickAnimation or you can manually describe how the button should react when the button is clicked, like, simple::Button.clickAnimation.x</span>
+				</li>
+				<li>
+					SDL_Color DefaultColor = (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>); <span class="comment">// Default color for the button and the text</span>
+				</li>
+				<li>
+					SDL_Color HoverColor = (<span class="number">255</span>, <span class="number">80</span>, <span class="number">80</span>, <span class="number">255</span>); <span class="comment">// default hover color for the button text</span>
+				</li>
+				<li>
+					SDL_Point padding = (<span class="number">5</span>, <span class="number">5</span>); <span class="comment">// default padding for the button (inside the button, between text and the button)</span>
+				</li>
+				<li>
+					<span class="sc1">bool</span> showClickAnimation = <span class="sc2">false</span>; <span class="comment">// switch for click animation, currently this cannot be turned off</span>
+				</li>
+				<li>
+					<span class="sc1">bool</span> showHoverAnimation = <span class="sc2">false</span>; <span class="comment">// switch for hover animation on the button, this can be turned off completely using simple::Button.globalShowHoverAnimation = false</span>
+				</li>
+				<li>
+					<span class="sc1">bool</span> globalShowHoverAnimation = <span class="sc2">true</span>; <span class="comment">// switch for showing hover animation or turn it off </span>
+				</li>
+				<li>
+					SDL_Point mouse; <span class="comment">// to keep track of the mouse</span>
+				</li>
+			</ol>
+			
+			<br><br>
+			<!-- for example -->
+			<div class="sub-container" id="sub-container-button">
+				<h5>Example Code</h5>
+				<span class="sc1">bool</span> returnData = <span class="sc2">false</span>;<br>
+				simple::Button btn;<br>
+				btn.setupButton (<span class="number">20</span>, <span class="number">30</span>, renderer, mFont, <span class="string">"Enter me"</span>); <span class="comment">// set the string to "" for default value</span> <br>
+				<span class="comment">// btn.setHoverColor (0, 255, 0, 255);</span><br>
+				
+				<h5>* Inside of the event handling *</h5>
+				btn.handleEvents (e, renderer, mFont, &returnData);<br>
+				
+				<h5>* Inside of the main loop / program running loop *</h5>
+				btn.renderButton (renderer);<br>
+			</div>
+		</div>
+		<br><br><br><br><br>
+		<iframe src="./ExampleCode.htm" title="Exported From Notepad++ - Example Code for SimpleGUI" width=640 height=480></iframe>
+	</body>
+</html>
+
+
+<!-- 
+
+please make other pages as well 
+-->

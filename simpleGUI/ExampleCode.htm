@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>Exported from Notepad++</title>
+<style type="text/css">
+span {
+	font-family: 'Consolas';
+	font-size: 10pt;
+	color: #F0F0F0;
+}
+.sc0 {
+}
+.sc1 {
+	color: #57A64A;
+}
+.sc2 {
+	color: #57A64A;
+}
+.sc4 {
+	color: #A6CEA8;
+}
+.sc5 {
+	color: #E67DDC;
+}
+.sc6 {
+	color: #D69D85;
+}
+.sc9 {
+	color: #9B9B9B;
+}
+.sc10 {
+	color: #9B9B9B;
+}
+.sc11 {
+	color: #F1F2F3;
+}
+.sc16 {
+	color: #559CD6;
+}
+</style>
+</head>
+<body>
+<div style="float: left; white-space: pre; line-height: 1; background: #1E1E1E; "><span class="sc1">/* 
+Creating simple GUI using simple GUI
+*/</span><span class="sc0">
+</span><span class="sc9">#include &lt;iostream&gt;
+#include &lt;SDL2/SDL.h&gt;
+#include &lt;SDL2/SDL_ttf.h&gt;
+</span><span class="sc0">
+</span><span class="sc9">#define screenWidth 640
+#define screenHeight 480
+</span><span class="sc0">
+</span><span class="sc11">SDL_Window</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">window</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc5">NULL</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc11">SDL_Renderer</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">renderer</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc5">NULL</span><span class="sc10">;</span><span class="sc0">
+
+</span><span class="sc2">// including the libraries 
+</span><span class="sc9">#include "\Desktop\simpleGUI\simpleGUI\Entry.hpp" </span><span class="sc2">// for input
+</span><span class="sc9">#include "\Desktop\simpleGUI\simpleGUI\Label.hpp" </span><span class="sc2">// for label
+</span><span class="sc9">#include "\Desktop\simpleGUI\simpleGUI\Button.hpp" </span><span class="sc2">// for button
+</span><span class="sc0">
+</span><span class="sc2">// function main
+</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">main</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">argc</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc16">char</span><span class="sc10">**</span><span class="sc0"> </span><span class="sc11">argv</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+  </span><span class="sc11">SDL_Init</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">SDL_INIT_VIDEO</span><span class="sc10">);</span><span class="sc0">
+  </span><span class="sc11">window</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">SDL_CreateWindow</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc6">"GUI Testing - SimpleGUI"</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">SDL_WINDOWPOS_UNDEFINED</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">SDL_WINDOWPOS_UNDEFINED</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">screenWidth</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">screenHeight</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">SDL_WINDOW_SHOWN</span><span class="sc10">);</span><span class="sc0">
+  </span><span class="sc11">renderer</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">SDL_CreateRenderer</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">window</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc10">-</span><span class="sc4">1</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">SDL_RENDERER_ACCELERATED</span><span class="sc10">);</span><span class="sc0">
+  
+  </span><span class="sc11">TTF_Init</span><span class="sc0"> </span><span class="sc10">();</span><span class="sc0"> </span><span class="sc2">// initializing ttf library for sdl (mandatory)
+</span><span class="sc0">  </span><span class="sc16">const</span><span class="sc0"> </span><span class="sc16">int</span><span class="sc0"> </span><span class="sc11">fontSize</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc4">24</span><span class="sc10">;</span><span class="sc0">
+  </span><span class="sc11">TTF_Font</span><span class="sc10">*</span><span class="sc0"> </span><span class="sc11">mFont</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc11">TTF_OpenFont</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc6">"\\Desktop\\SimpleGUI\\raster.ttf"</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">fontSize</span><span class="sc10">);</span><span class="sc0">
+  </span><span class="sc5">if</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">mFont</span><span class="sc0"> </span><span class="sc10">==</span><span class="sc0"> </span><span class="sc5">nullptr</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0"> </span><span class="sc2">// if failed to load the font
+</span><span class="sc0">    </span><span class="sc11">std</span><span class="sc10">::</span><span class="sc11">cout</span><span class="sc0"> </span><span class="sc10">&lt;&lt;</span><span class="sc0"> </span><span class="sc6">"TTF_OpenFont () : "</span><span class="sc0"> </span><span class="sc10">&lt;&lt;</span><span class="sc0"> </span><span class="sc11">TTF_GetError</span><span class="sc0"> </span><span class="sc10">()</span><span class="sc0"> </span><span class="sc10">&lt;&lt;</span><span class="sc0"> </span><span class="sc11">std</span><span class="sc10">::</span><span class="sc11">endl</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc5">return</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+  </span><span class="sc10">}</span><span class="sc0">
+  
+  </span><span class="sc11">SDL_Event</span><span class="sc0"> </span><span class="sc11">e</span><span class="sc10">;</span><span class="sc0">
+  </span><span class="sc16">bool</span><span class="sc0"> </span><span class="sc11">quit</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc5">false</span><span class="sc10">;</span><span class="sc0">
+  
+  </span><span class="sc2">// creating objects
+</span><span class="sc0">    </span><span class="sc2">// creating label object
+</span><span class="sc0">    </span><span class="sc11">simple</span><span class="sc10">::</span><span class="sc11">Label</span><span class="sc0"> </span><span class="sc11">l1</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">l1</span><span class="sc10">.</span><span class="sc11">setDefaultColor</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc4">0</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">255</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">199</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">255</span><span class="sc10">);</span><span class="sc0"> </span><span class="sc2">// color unknown
+</span><span class="sc0">    </span><span class="sc11">l1</span><span class="sc10">.</span><span class="sc11">setupLabel</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc4">20</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">30</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc6">"Enter your name : "</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">renderer</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">mFont</span><span class="sc10">);</span><span class="sc0">
+    
+    </span><span class="sc2">// creating entry object
+</span><span class="sc0">    </span><span class="sc11">simple</span><span class="sc10">::</span><span class="sc11">Entry</span><span class="sc0"> </span><span class="sc11">nameInput</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc2">// this function goes like (x, y, width, height, fontsize, renderer, font)
+</span><span class="sc0">    </span><span class="sc11">nameInput</span><span class="sc10">.</span><span class="sc11">setupBox</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">l1</span><span class="sc10">.</span><span class="sc11">text</span><span class="sc10">.</span><span class="sc11">w</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc4">13</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">30</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">240</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc10">-</span><span class="sc4">1</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">fontSize</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">renderer</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">mFont</span><span class="sc10">);</span><span class="sc0">
+    
+    </span><span class="sc2">// creatin button 
+</span><span class="sc0">    </span><span class="sc11">simple</span><span class="sc10">::</span><span class="sc11">Button</span><span class="sc0"> </span><span class="sc11">btn</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc11">btn</span><span class="sc10">.</span><span class="sc11">setHoverColor</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc4">0</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">255</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">255</span><span class="sc10">);</span><span class="sc0"> </span><span class="sc2">// green color
+</span><span class="sc0">    </span><span class="sc11">btn</span><span class="sc10">.</span><span class="sc11">setupButton</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">nameInput</span><span class="sc10">.</span><span class="sc11">box</span><span class="sc10">.</span><span class="sc11">x</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc11">nameInput</span><span class="sc10">.</span><span class="sc11">box</span><span class="sc10">.</span><span class="sc11">w</span><span class="sc0"> </span><span class="sc10">+</span><span class="sc0"> </span><span class="sc4">3</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">30</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">renderer</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">mFont</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc6">"Please click me!"</span><span class="sc10">);</span><span class="sc0">
+  
+  </span><span class="sc16">bool</span><span class="sc0"> </span><span class="sc11">returnData</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc5">false</span><span class="sc10">;</span><span class="sc0">
+  
+  </span><span class="sc11">SDL_StartTextInput</span><span class="sc0"> </span><span class="sc10">();</span><span class="sc0">
+  
+  </span><span class="sc2">// setting up the main loop
+</span><span class="sc0">  </span><span class="sc5">while</span><span class="sc0"> </span><span class="sc10">(!</span><span class="sc11">quit</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+    </span><span class="sc5">while</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">SDL_PollEvent</span><span class="sc0"> </span><span class="sc10">(&amp;</span><span class="sc11">e</span><span class="sc10">))</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+      </span><span class="sc5">if</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">e</span><span class="sc10">.</span><span class="sc11">type</span><span class="sc0"> </span><span class="sc10">==</span><span class="sc0"> </span><span class="sc11">SDL_QUIT</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+        </span><span class="sc11">quit</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc5">true</span><span class="sc10">;</span><span class="sc0">
+      </span><span class="sc10">}</span><span class="sc0">
+      </span><span class="sc2">// code here
+</span><span class="sc0">      </span><span class="sc11">nameInput</span><span class="sc10">.</span><span class="sc11">handleEvents</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">renderer</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">mFont</span><span class="sc10">);</span><span class="sc0">
+      </span><span class="sc11">btn</span><span class="sc10">.</span><span class="sc11">handleEvents</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">e</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">renderer</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc11">mFont</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc10">&amp;</span><span class="sc11">returnData</span><span class="sc10">);</span><span class="sc0">
+    </span><span class="sc10">}</span><span class="sc0">
+    </span><span class="sc11">SDL_SetRenderDrawColor</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">renderer</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0xff</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0xff</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0xff</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc4">0xff</span><span class="sc10">);</span><span class="sc0">
+    </span><span class="sc11">SDL_RenderClear</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">renderer</span><span class="sc10">);</span><span class="sc0">
+    
+    </span><span class="sc2">// rendering the label
+</span><span class="sc0">    </span><span class="sc11">l1</span><span class="sc10">.</span><span class="sc11">renderLabel</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">renderer</span><span class="sc10">);</span><span class="sc0">
+    </span><span class="sc11">nameInput</span><span class="sc10">.</span><span class="sc11">renderEntry</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">renderer</span><span class="sc10">);</span><span class="sc0">
+    </span><span class="sc11">btn</span><span class="sc10">.</span><span class="sc11">renderButton</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">renderer</span><span class="sc10">);</span><span class="sc0">
+    </span><span class="sc2">// if the button is clicked 
+</span><span class="sc0">    </span><span class="sc5">if</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">returnData</span><span class="sc10">)</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
+      </span><span class="sc11">std</span><span class="sc10">::</span><span class="sc11">cout</span><span class="sc0"> </span><span class="sc10">&lt;&lt;</span><span class="sc0"> </span><span class="sc6">"You have clicked the button"</span><span class="sc0"> </span><span class="sc10">&lt;&lt;</span><span class="sc0"> </span><span class="sc11">std</span><span class="sc10">::</span><span class="sc11">endl</span><span class="sc10">;</span><span class="sc0">
+      </span><span class="sc11">std</span><span class="sc10">::</span><span class="sc11">cout</span><span class="sc0"> </span><span class="sc10">&lt;&lt;</span><span class="sc0"> </span><span class="sc6">"The name is : "</span><span class="sc0"> </span><span class="sc10">&lt;&lt;</span><span class="sc0"> </span><span class="sc11">nameInput</span><span class="sc10">.</span><span class="sc11">stringValue</span><span class="sc0"> </span><span class="sc10">&lt;&lt;</span><span class="sc0"> </span><span class="sc11">std</span><span class="sc10">::</span><span class="sc11">endl</span><span class="sc10">;</span><span class="sc0">
+      </span><span class="sc11">returnData</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc5">false</span><span class="sc10">;</span><span class="sc0">
+    </span><span class="sc10">}</span><span class="sc0">
+    
+    </span><span class="sc11">SDL_RenderPresent</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">renderer</span><span class="sc10">);</span><span class="sc0"> </span><span class="sc2">// updating the window
+</span><span class="sc0">  </span><span class="sc10">}</span><span class="sc0">
+  
+  </span><span class="sc11">SDL_StopTextInput</span><span class="sc0"> </span><span class="sc10">();</span><span class="sc0">
+  
+  </span><span class="sc2">// freeing everything
+</span><span class="sc0">  </span><span class="sc11">SDL_DestroyRenderer</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">renderer</span><span class="sc10">);</span><span class="sc0">
+  </span><span class="sc11">SDL_DestroyWindow</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">window</span><span class="sc10">);</span><span class="sc0">
+  </span><span class="sc11">TTF_CloseFont</span><span class="sc0"> </span><span class="sc10">(</span><span class="sc11">mFont</span><span class="sc10">);</span><span class="sc0">
+  </span><span class="sc11">TTF_Quit</span><span class="sc10">();</span><span class="sc0">
+  </span><span class="sc11">SDL_Quit</span><span class="sc0"> </span><span class="sc10">();</span><span class="sc0">
+  
+  </span><span class="sc5">return</span><span class="sc0"> </span><span class="sc4">0</span><span class="sc10">;</span><span class="sc0">
+</span><span class="sc10">}</span></div></body>
+</html>
